@@ -8,6 +8,14 @@ use Calculator\Dictionary;
 
 class AdditionTest extends \PHPUnit_Framework_TestCase
 {
+    public function test_unknown_expression_part_result_in_an_exception()
+    {
+        $this->setExpectedException('Calculator\UnknownExpressionPart');
+
+        $m = new Math(new TestTokenizer(['1', '-', '1']), new Dictionary());
+        $m->expression('foobar');
+    }
+
     public function test_simple_addition()
     {
         $m = new Math(new TestTokenizer(['1', '+', '1']), new Dictionary());

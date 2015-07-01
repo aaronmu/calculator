@@ -10,5 +10,7 @@ class Dictionary
     {
         if (is_numeric($str)) return new Number($str);
         if ($str === '+') return new Addition($str);
+
+        throw UnknownExpressionPart::fromPart($str);
     }
 }
