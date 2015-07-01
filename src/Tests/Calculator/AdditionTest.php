@@ -29,6 +29,13 @@ class AdditionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(intval(14), $m->expression('foobar'));
     }
+
+    public function test_simple_subtraction()
+    {
+        $m = new Math(new TestTokenizer(['5', '-', '3']), new Dictionary());
+
+        $this->assertSame(intval(2), $m->expression('foobar'));
+    }
 }
 
 class TestTokenizer implements Tokenizer
