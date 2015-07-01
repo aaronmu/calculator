@@ -2,17 +2,28 @@
 
 namespace Calculator;
 
-use Calculator\Operator\Addition;
-use Calculator\Operator\Subtraction;
-
 class Dictionary
 {
-    public static function fromString($str)
+    private $factories;
+
+    public function getExpressionPart($str)
     {
-        if (is_numeric($str)) return new Number($str);
-        if ($str === '+') return new Addition($str);
-        if ($str === '-') return new Subtraction($str);
+        foreach ($this->factories as $factory) {
+            $ep = $factory($str);
+            if ($ep instanceof ExpressionPart) {
+                return $ep;
+            }
+        }
 
         throw UnknownExpressionPart::fromPart($str);
+    }
+
+    public function registerTest(callable $test, callable $factory)
+    {
+        $this->factories[] = function($str) use ($test, $factory) {
+            return $test($str)
+                ? $factory($str)
+                : null;
+        };
     }
 }

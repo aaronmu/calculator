@@ -19,7 +19,7 @@ class Math
         $output = new Stack();
 
         foreach ($this->tokenizer->tokenize($str) as $token) {
-            $part = Dictionary::fromString($token);
+            $part = $this->dictionary->getExpressionPart($token);
 
             ($part instanceof Operator)
                 ? $input->push($part)
@@ -30,20 +30,30 @@ class Math
             $output->push($operator);
         }
 
-        // Ran out of time, this'll only work with addition
-        $op = $output->pop();
-        $val = $op->operate($output);
+        return $this->render($this->calculate($output));
+    }
 
-        while(($operator = $output->pop()) && $operator instanceof Operator) {
-            $output->push($operator->operate($output));
+    private function calculate(Stack $input)
+    {
+        $output = new Stack();
+
+        while(($operator = $input->pop()) && $operator instanceof Operator) {
+            $output->push($operator->operate($input));
         }
+
+        return $output;
+    }
+
+    private function render(Stack $input)
+    {
+        $input = clone $input;
 
         $str = '';
-        while ($o = $output->pop()) {
-            $output .= (string) $o;
+        while ($o = $input->pop()) {
+            $str .= (string) $o;
         }
 
 
-        return $val;
+        return $str;
     }
 }
