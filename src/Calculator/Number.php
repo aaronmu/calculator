@@ -11,6 +11,11 @@ class Number implements ExpressionPart
         $this->value = $value;
     }
 
+    public function __toString()
+    {
+        return $this->value;
+    }
+
     public function operate(Stack $stack)
     {
         return $this->value;

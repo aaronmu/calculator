@@ -34,6 +34,16 @@ class Math
         $op = $output->pop();
         $val = $op->operate($output);
 
+        while(($operator = $output->pop()) && $operator instanceof Operator) {
+            $output->push($operator->operate($output));
+        }
+
+        $str = '';
+        while ($o = $output->pop()) {
+            $output .= (string) $o;
+        }
+
+
         return $val;
     }
 }
