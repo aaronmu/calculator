@@ -6,7 +6,7 @@ use Calculator\Math;
 use Calculator\Tokenizer;
 use Calculator\Dictionary;
 
-class FirstTest extends \PHPUnit_Framework_TestCase
+class AdditionTest extends \PHPUnit_Framework_TestCase
 {
     public function test_simple_addition()
     {
