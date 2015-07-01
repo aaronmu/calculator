@@ -21,7 +21,7 @@ class Math
         foreach ($this->tokenizer->tokenize($str) as $token) {
             $part = Dictionary::fromString($token);
 
-            $part->isOperator()
+            ($part instanceof Operator)
                 ? $input->push($part)
                 : $output->push($part);
         }
