@@ -15,9 +15,4 @@ class Number implements ExpressionPart
     {
         return $this->value;
     }
-
-    public function isOperator()
-    {
-        return false;
-    }
 }
