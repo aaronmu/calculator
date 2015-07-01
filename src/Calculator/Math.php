@@ -15,18 +15,28 @@ class Math
 
     public function expression($str)
     {
-        $input = new Stack();
+        $operators = new Stack();
         $output = new Stack();
 
         foreach ($this->tokenizer->tokenize($str) as $token) {
-            $part = $this->dictionary->getExpressionPart($token);
+            $o1 = $this->dictionary->getExpressionPart($token);
 
-            ($part instanceof Operator)
-                ? $input->push($part)
-                : $output->push($part);
+            if ($o1 instanceof Operator) {
+                if (($o2 = $operators->poke()) && $o2 instanceof Operator) {
+                    if(
+                        ($o1->isLeftAssociative() && $o1->getPrecedence() <= $o2->getPrecedence()) ||
+                        ($o1->isRightAssociative() && $o1->getPrecedence() < $o2)
+                    ) {
+                        $output->push($operators->pop());
+                    }
+                }
+                $operators->push($o1);
+            } else {
+                $output->push($o1);
+            }
         }
 
-        while ($operator = $input->pop()) {
+        while ($operator = $operators->pop()) {
             $output->push($operator);
         }
 

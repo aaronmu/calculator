@@ -66,6 +66,13 @@ class AdditionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(2, $m->expression('foobar'));
     }
+
+    public function test_complex_subtraction()
+    {
+        $m = new Math(new TestTokenizer(['5', '-', '3', '-', '1']), $this->dictionary);
+
+        $this->assertEquals(1, $m->expression('foobar'));
+    }
 }
 
 class TestTokenizer implements Tokenizer

@@ -12,6 +12,21 @@ class Addition implements Operator
         return '';
     }
 
+    public function getPrecedence()
+    {
+        return 2;
+    }
+
+    public function isLeftAssociative()
+    {
+        return true;
+    }
+
+    public function isRightAssociative()
+    {
+        return false;
+    }
+
     public function operate(Stack $stack)
     {
         return $stack->pop()->operate($stack) + $stack->pop()->operate($stack);

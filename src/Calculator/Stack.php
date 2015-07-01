@@ -16,4 +16,9 @@ class Stack
         return array_pop($this->elements);
     }
 
+    public function poke()
+    {
+        return end($this->elements);
+    }
+
 }

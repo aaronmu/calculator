@@ -19,4 +19,19 @@ class Subtraction implements Operator
 
         return $left - $right;
     }
+
+    public function getPrecedence()
+    {
+        return 2;
+    }
+
+    public function isLeftAssociative()
+    {
+        return true;
+    }
+
+    public function isRightAssociative()
+    {
+        return false;
+    }
 }
